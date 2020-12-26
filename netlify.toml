@@ -1,0 +1,10 @@
+[build]
+  publish = "public"
+
+  # Default build command.
+  command = "npm run build"
+
+  # Directory with the serverless functions, including background functions,
+  # to deploy to AWS. This is relative to the base directory if one has been set, 
+  # or the root directory if a base has not been set.
+  functions = "functions"
