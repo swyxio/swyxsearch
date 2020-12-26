@@ -20,7 +20,8 @@
 			})
 			.catch(err => {
 				alert(err)
-			}).finally(() => {
+			})
+			.finally(() => {
 				isSearching = false
 			});
 	}
@@ -57,16 +58,23 @@
 		<button type="submit">{isSearching ? '...' : 'Search'}</button>
 	</form>
 	<ul>
-		{#each results as res}
-			<li>
-			{#if res.href.startsWith('/imgres')}
-				Image: <span><a href={res.href}>{res.href.slice(22,120) + '...'}</a></span>
-			{:else}
-				<h3><a href={res.href}>{res.linktext}</a></h3>
-				<span><a href={res.href}>{res.href}</a></span>
-				<div>{res.siblingtext}</div>
-				{/if}
-			</li>
-		{:else}No results{/each}
+		{#if results.statusCode}
+			<h3 style="color: red">Error: {results.statusCode}</h3>
+			<blockquote>
+				{results.body}
+			</blockquote>
+		{:else}
+			{#each results as res}
+				<li>
+				{#if res.href.startsWith('/imgres')}
+					Image: <span><a href={res.href}>{res.href.slice(22,120) + '...'}</a></span>
+				{:else}
+					<h3><a href={res.href}>{res.linktext}</a></h3>
+					<span><a href={res.href}>{res.href}</a></span>
+					<div>{res.siblingtext}</div>
+					{/if}
+				</li>
+			{:else}No results{/each}
+		{/if}
 	</ul>
 </main>
