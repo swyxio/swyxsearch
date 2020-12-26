@@ -5,6 +5,6 @@
 <Image width="16" height="16">https://www.swyx.io/favicon.png</Image>
 <InputEncoding>UTF-8</InputEncoding>
 <SearchForm>https://swyxsearch.netlify.app</SearchForm>
-<Url type="text/html" method="GET" template="https://swyxsearch.netlify.app/?query={searchTerms}&ref=os"/>
+<Url type="text/html" method="GET" template="https://swyxsearch.netlify.app/?query={searchTerms}&amp;ref=os"/>
 <Url type="application/opensearchdescription+xml" rel="self" template="https://swyxsearch.netlify.app/opensearch.xml"/>
 </OpenSearchDescription>
