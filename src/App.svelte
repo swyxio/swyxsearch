@@ -2,6 +2,14 @@
 	let searchBox = "";
 	let results = [];
 	let isSearching = false
+	import {onMount} from 'svelte'
+	onMount(() => {
+		let os = (new URL(document.location)).searchParams.get('query')
+		if (os) {
+			searchBox = os
+			handleSubmit()
+		}
+	})
 	function handleSubmit() {
 		isSearching = true
 		fetch("/.netlify/functions/search?q=" + searchBox)
