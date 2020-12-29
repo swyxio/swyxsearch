@@ -10,6 +10,9 @@
 			handleSubmit()
 		}
 	})
+	function google() {
+		document.location = 'https://www.google.com/&q=' + searchBox
+	}
 	function handleSubmit() {
 		isSearching = true
 		fetch("/.netlify/functions/search?q=" + searchBox)
@@ -56,6 +59,8 @@
 	<form on:submit|preventDefault={handleSubmit}>
 		<input type="text" bind:value={searchBox} disabled={isSearching} />
 		<button type="submit">{isSearching ? '...' : 'Search'}</button>
+		<button type="button" on:click={google}>Google</button>
+		<a href={'https://www.bing.com/&q=' + searchBox}>Bing</a>
 	</form>
 	<ul>
 		{#if results.statusCode}
