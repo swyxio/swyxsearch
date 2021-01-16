@@ -67,7 +67,6 @@ async function searchMe(query) {
       .replace(/(\r\n|\n|\r)/gm, "")
       .replace(/\s+/g, " ").trim()
     var href = $(link).attr('href')
-    if (href.startsWith('/')) href = "https://google.com" + href
     if (!['', 'Cached', 'View on Twitter', 'Similar'].includes(linktext) && href !== '#' && !linktext.startsWith('Twitter · ')) {
       links.push({linktext, siblingtext, href})
     }
