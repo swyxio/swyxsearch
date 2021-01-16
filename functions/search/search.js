@@ -2,7 +2,6 @@
 const fetch = require('node-fetch')
 const cheerio = require('cheerio')
 exports.handler = async function(event, context) {
-  // console.log(event.queryStringParameters)
   const q = event.queryStringParameters.q || 'no search term'
   try {
     var links = await searchMe(q)
@@ -18,29 +17,6 @@ exports.handler = async function(event, context) {
     }
   }
 }
-
-
-
-// fetch("https://www.google.com/search?q=be+brave&oq=be+brave&aqs=chrome..69i57j69i64l3.4592j0j9&sourceid=chrome&ie=UTF-8", {
-//   "headers": {
-//     "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-//     "accept-language": "en-US,en;q=0.9",
-//     "sec-fetch-dest": "document",
-//     "sec-fetch-mode": "navigate",
-//     "sec-fetch-site": "none",
-//     "sec-fetch-user": "?1",
-//     "upgrade-insecure-requests": "1",
-//     "x-client-data": "CJS2yQEIpbbJAQjEtskBCKmdygEI0qDKAQiZwsoBCKzHygEI9cfKAQj4x8oBCKTNygEI3NXKAQjtmMsBCJSaywEIi5zLAQjBnMsBGKibywE="
-//   },
-//   "referrerPolicy": "strict-origin-when-cross-origin",
-//   "body": null,
-//   "method": "GET",
-//   "mode": "cors",
-//   "credentials": "include"
-// });
-
-
-
 
 // search the top 20 google results
 async function searchMe(query) {
@@ -91,33 +67,11 @@ async function searchMe(query) {
       .replace(/(\r\n|\n|\r)/gm, "")
       .replace(/\s+/g, " ").trim()
     var href = $(link).attr('href')
-    // console.log({linktext, siblingtext, href})
+    if (href.startsWith('/')) href = "https://google.com" + href
     if (!['', 'Cached', 'View on Twitter', 'Similar'].includes(linktext) && href !== '#' && !linktext.startsWith('Twitter · ')) {
-      // console.log({big, linktext})
       links.push({linktext, siblingtext, href})
     }
   });
 
-  // response = await fetch('https://www.google.com/search?start=10&q=' + query, {
-  //   headers: { 
-  //     'user-agent': 'Mozilla/5.0 (MSIE; Windows 10)'
-  //   }
-  // })
-  // if (!response.ok) {
-  //   // NOT res.status >= 200 && res.status < 300
-  //   return { statusCode: response.status, body: response.statusText }
-  // }
-  // var tmp = await response.text()
-  // var $ = cheerio.load(tmp)
-  // $(profile.query).each(function(i, link){
-  //   var linktext = $(link).text()
-  //     .replace(/(\r\n|\n|\r)/gm, "")
-  //     .replace(/\s+/g, " ").trim()
-  //   var siblingtext = $($(link).parent().siblings()).text()
-  //     .replace(/(\r\n|\n|\r)/gm, "")
-  //     .replace(/\s+/g, " ").trim()
-  //   var href = $(link).attr('href')
-  //   links.push({linktext, siblingtext, href})
-  // });
   return links
 }
